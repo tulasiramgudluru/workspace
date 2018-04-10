@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;Xpaths.Select.java&apos; to &apos;Type2.java&apos;&#x0D;&#x0A;- Original project: &apos;Automation&apos;&#x0D;&#x0A;- Original element: &apos;Xpaths.Select.java&apos;&#x0D;&#x0A;- Renamed element: &apos;Xpaths.Type2.java&apos;" description="Rename compilation unit &apos;Select.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src\/test\/java&lt;Xpaths{Select.java" name="Type2.java" references="false" stamp="1451451061912" version="1.0"/>
+</session>

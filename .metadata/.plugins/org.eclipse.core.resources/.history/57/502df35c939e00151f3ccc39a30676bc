@@ -1,0 +1,20 @@
+
+public class ControlStructures {
+
+	public static void main(String[] args) {
+		
+	
+		
+		
+		if(true){
+			
+			System.out.println("condition true");
+		}
+		else{
+			
+			System.out.println("false");
+		}
+
+	}
+
+}

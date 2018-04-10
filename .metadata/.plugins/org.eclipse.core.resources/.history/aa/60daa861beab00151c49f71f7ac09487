@@ -1,0 +1,25 @@
+package Xpaths;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.Test;
+
+public class Flipkart{
+	@Test
+	public static void Shop() throws InterruptedException{
+		WebDriver d;
+		d=new FirefoxDriver();
+		d.manage().window().maximize();
+		d.navigate().to("http://www.flipkart.com/");
+		d.findElement(By.xpath("//span[normalize-space(text())='Download App']")).click();
+		d.findElement(By.xpath("//div[@id='android-btn-cont']/a")).click();
+		//d.close();
+		Thread.sleep(5000);
+		//d.navigate().to("https://play.google.com/store/apps/details?id=com.flipkart.android");
+		d.findElement(By.xpath("//span[@data-docid='com.flipkart.android']/span/button")).click();
+		
+		
+		
+	}
+}

@@ -1,0 +1,98 @@
+package TestScripts;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Properties;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+import CommonUtils.CommonMethods;
+import CommonUtils.Reading_Xlsx;
+import PageObjects.Login;
+
+public class TestCases {
+	public static HashMap<String,String> Hash=null;
+	public static WebDriver d=null;
+	public  static   String username=null;
+	public static    String password=null;
+	public static Properties p=null;
+	public static int trows=0;
+	@BeforeClass
+	public static void Extractdata() throws IOException{
+		Hash=new HashMap<String,String>();
+		//File f=new File("D:\\Testdata2.xlsx");
+		//File f=new File(System.getProperty("user.dir")+"\\Resources\\Testdata.xlsx");
+		//FileInputStream fis=new FileInputStream(f);
+		//XSSFWorkbook wb=new XSSFWorkbook(fis);
+		//XSSFSheet ws=wb.getSheet("Data");
+		//xlsxFileInput x= new xlsxFileInput(System.getProperty("user.dir")+"\\Resources\\Testdata.xlsx", "Data");
+		Reading_Xlsx file=new Reading_Xlsx();
+		XSSFSheet ws=file.xlsxFileInput(System.getProperty("user.dir")+"\\Resources\\Testdata.xlsx", "Data");
+		//int trows=ws.getLastRowNum();
+		trows=Reading_Xlsx.readingExcelSheetrowcount(ws);
+		//int trows=ws.getLastRowNum();
+		System.out.println(trows);
+		for(int i=1;i<=trows;i=i+2){
+		Hash.put(ws.getRow(i).getCell(0).getStringCellValue(),ws.getRow(i).getCell(1).getStringCellValue());
+			//Hash.put(ws.getRow(i).getCell(0).getStringCellValue(),ws.getRow(i).getCell(1).getStringCellValue());
+		}
+		System.out.println(Hash.get("Browser ?"));
+		System.out.println(System.getProperty("user.dir"));
+		//Reading_Xlsx xls=new Reading_Xlsx();
+		//xls.xlsxFileInput(System.getProperty("user.dir")+"\\Resources\\Testdata.xlsx", "Data");
+		
+		/*File f1=new File(System.getProperty("user.dir")+"\\Resources\\Prop.properties");
+		FileInputStream fis1=new FileInputStream(f);
+	    p=new Properties();
+		p.load(fis1);
+	
+		System.out.println(p.getProperty("Browser"));*/
+		
+		}
+	@Test
+	public void Testdata() throws InterruptedException, IOException{
+		d=CommonMethods.openbrowser(Hash.get("Browser ?"));
+		d.get(Hash.get("Application url ?"));
+		//d=CommonMethods.openbrowser(p.getProperty("Browser"));
+		//d.get(p.getProperty("Applicationurl"));
+		d.manage().window().maximize();
+		//CommonMethods.clickElementById(d, "u_0_l");
+		/*d.findElement(By.xpath(Login.USERNAME)).sendKeys(Hash.get("username ?"));
+		//d.findElement(By.id("email")).sendKeys(username);
+		d.findElement(By.xpath(Login.PASSWORD)).sendKeys(Hash.get("Password ?"));
+		//d.findElement(By.id("pass")).sendKeys(password);*/
+		//Thread.sleep(1000);
+		CommonMethods.waitForElementVisibleXpath(d, Login.USERNAME);
+		CommonMethods.TypetextByXpath(d, Login.USERNAME, Hash.get("username ?"));
+		CommonMethods.waitForElementVisibleXpath(d, Login.PASSWORD);
+		CommonMethods.TypetextByXpath(d, Login.PASSWORD, Hash.get("Password ?"));
+		//CommonMethods.clickElementByXpath(d,p.getProperty("Xpath_Login_Button"));
+		CommonMethods.waitForElementVisibleXpath(d, Login.LOGIN);
+		CommonMethods.clickElementByXpath(d,Login.LOGIN);
+		//CommonMethods.xlsxFileInput(System.getProperty("user.dir")+"\\Resources\\Testdata.xlsx", "Data");  use less
+		
+	
+	}
+	@AfterClass
+	public static void Aftertest() throws FileNotFoundException{
+		//d.quit();
+		
+		
+		
+	}
+}
+
+
+

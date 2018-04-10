@@ -1,0 +1,35 @@
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Paytm {
+	public static void main(String[]args) throws InterruptedException{
+		WebDriver d;
+		d=new FirefoxDriver();
+		d.navigate().to("http:paytm.com");
+		d.manage().window().maximize();
+		Thread.sleep(2000);
+		d.findElement(By.xpath("//div[@ng-mouseleave='hideDropdown()']/span[@ng-click='openLinkLogin()']")).click();
+		List<WebElement> Frames=d.findElements(By.tagName("iframe"));
+		System.out.println(Frames.size());
+	
+	for(int i=0;i<Frames.size();i++){
+		d.switchTo().frame(i);
+		int s=d.findElements(By.xpath("//input[@id='input_0']")).size();
+		if(s==1){
+			d.switchTo().frame(1).getTitle();
+		}
+		System.out.println(s);
+		d.switchTo().defaultContent();
+	}
+	
+	
+	
+	
+	
+	
+	}
+}

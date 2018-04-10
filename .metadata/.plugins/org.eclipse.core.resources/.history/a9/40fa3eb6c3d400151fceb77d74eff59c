@@ -1,0 +1,122 @@
+package Xpaths;
+
+import java.util.Iterator;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class WindowHandle {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		WebDriver d;
+		//System.setProperty("webdriver.chrome.driver", "D:/SELINIUM for Chrome/chromedriver.exe");
+		//d=new ChromeDriver();
+		d=new FirefoxDriver();
+		//d.navigate().to("http://jqueryui.com/droppable/");
+		d.navigate().to("https://jqueryui.com/slider/");
+		d.manage().window().maximize();
+		String s=getWindowHandle(d);
+		contextClick(d,"//a[text()='Draggable']");
+		
+	
+		
+		Set<String> s1=d.getWindowHandles();
+		
+		System.out.println(s1.size());
+		
+		Iterator<String> it=s1.iterator();
+		
+		while(it.hasNext()){
+			
+			String str=it.next();
+			System.out.println(str);
+			String wtitle=d.switchTo().window(str).getTitle();
+			System.out.println(wtitle);
+			if(wtitle.contains("Slider")){
+				break;
+			}
+			
+		}
+		Thread.sleep(5000);
+		
+		/*d.switchTo().frame(0);
+		
+		dragElement(d,"//div[@id='draggable']");
+	*/
+		
+		//d.switchTo().window(s);
+		
+	Thread.sleep(5000);
+		
+		d.switchTo().frame(0);
+		
+		dragElement(d,"//div[@id='slider']/span");
+
+	}
+	
+	public static void contextClick(WebDriver d,String xpath){
+		
+		 Actions actions=new Actions(d);
+		//actions.contextClick(d.findElement(By.xpath(xpath))).sendKeys(Keys.CONTROL +"t").build().perform();
+		 actions.contextClick(d.findElement(By.xpath(xpath))).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.RETURN).build().perform();
+	}
+	
+	public static void dragElement(WebDriver d,String xpath){
+		
+		 Actions actions=new Actions(d);
+		actions.dragAndDropBy(d.findElement(By.xpath(xpath)), 100 , 0).build().perform();
+
+	}
+
+}
+
+
+
+
+
+/*public class WindowExamples {                      //another example for window handling from selenium easy//
+	static WebDriver driver;
+
+	@Test
+	public void test_CloseAllWindowsExceptMainWindow() {
+		driver = new FirefoxDriver();
+		// It will open Naukri website with multiple windows
+		driver.get("http://www.naukri.com/");
+		
+		// To get the main window handle
+		String windowTitle= getCurrentWindowTitle();
+		String mainWindow = getMainWindowHandle(driver);
+		Assert.assertTrue(closeAllOtherWindows(mainWindow));
+		Assert.assertTrue(windowTitle.contains("Jobs - Recruitment"), "Main window title is not matching");
+	}
+		
+	public String getMainWindowHandle(WebDriver driver) {
+		return driver.getWindowHandle();
+	}
+
+	public String getCurrentWindowTitle() {
+		String windowTitle = driver.getTitle();
+		return windowTitle;
+	}
+	
+	//To close all the other windows except the main window.
+	public static boolean closeAllOtherWindows(String openWindowHandle) {
+		Set<String> allWindowHandles = driver.getWindowHandles();
+		for (String currentWindowHandle : allWindowHandles) {
+			if (!currentWindowHandle.equals(openWindowHandle)) {
+				driver.switchTo().window(currentWindowHandle);
+				driver.close();
+			}
+		}
+		
+		driver.switchTo().window(openWindowHandle);
+		if (driver.getWindowHandles().size() == 1)
+			return true;
+		else
+			return false;
+	}*/

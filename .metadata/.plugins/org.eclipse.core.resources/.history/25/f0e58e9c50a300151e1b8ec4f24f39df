@@ -1,0 +1,6 @@
+
+public class Super {
+	
+	int a=30;
+
+}

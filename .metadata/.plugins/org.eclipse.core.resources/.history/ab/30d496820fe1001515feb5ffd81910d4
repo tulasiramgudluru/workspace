@@ -1,0 +1,56 @@
+
+public  class Obs2  {
+
+int [] ary=new int[200];
+int c=1,b,d,x,y,s,j,p,v=0;
+int i=1;
+
+public int find(int N){
+
+
+    for(int a=2;a<100;a++)
+    {  
+        s=a;
+        do
+        {
+            x=a/2;
+            y=a%2;
+            if(y==0)
+            {
+                a=x;
+            }
+       }while(y==0 && x!=1);
+        if(y==0 && x==1) 
+        {
+            ary[v]=s;   //This is line 28
+           ++v;
+        }
+
+        else if(y!=0 && a>2)
+        {  
+
+            do{
+               j=a/3;
+               c=a%3;
+               a=j;
+            }while(c==0 && j!=1);
+
+            if(c==0 && j==1)
+            {
+                ary[v]=s;
+                v++;
+            }
+        }
+
+    } 
+
+  return ary[N];
+}
+public static void main(String[] args) 
+{
+
+    Obs2 obs =new Obs2();
+    System.out.print(obs.find(10));   //And this is line 56
+} 
+
+}
